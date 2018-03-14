@@ -14,6 +14,19 @@ from rest_framework import mixins
 from rest_framework import generics
 
 
+# 4) 제네릭 클래스 기반 뷰 사용하기
+
+class SnippetList(generics.ListCreateAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+
+
 # 0) 시리얼라이저를 사용하는 Django 뷰 만들기
 
 # class JSONResponse(HttpResponse):
@@ -202,19 +215,3 @@ from rest_framework import generics
 #     def delete(self, request, *args, **kwargs):
 #         return self.destroy(request, *args, **kwargs)
 
-
-# 4) 제네릭 클래스 기반 뷰 사용하기
-
-from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer
-from rest_framework import generics
-
-
-class SnippetList(generics.ListCreateAPIView):
-    queryset = Snippet.objects.all()
-    serializer_class = SnippetSerializer
-
-
-class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Snippet.objects.all()
-    serializer_class = SnippetSerializer
