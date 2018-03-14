@@ -9,20 +9,20 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-
+import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = os.path.dirname(BASE_DIR)
 
+SECRET_DIR = os.path.join(ROOT_DIR, '.secrets')
+SECRET_BASE = os.path.join(SECRET_DIR, 'base.json')
+SECRET_LOCAL = os.path.join(SECRET_DIR, 'local.json')
+secrets = json.loads(open(SECRET_BASE, 'rt').read())
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
+SECRET_KEY = secrets['SECRET_KEY']
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$1tz$_#+z$gp9r9!f&g+&t*8=5+^u(*h20$$$(kh%*ggn=r6lp'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'django_extensions',
 
     'snippets',
 ]
